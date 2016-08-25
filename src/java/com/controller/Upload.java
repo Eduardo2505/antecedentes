@@ -52,20 +52,32 @@ public class Upload extends HttpServlet {
 
                 while (it.hasNext()) {
                     FileItem item = (FileItem) it.next();
-                    /*  60*/ file = new File(item.getName());
-                    /*  61*/ int a = file.getName().indexOf(".pdf");
-                    /*  62*/ if (a != -1) {
-                        /*  63*/ GrpaveDaoImpl dao = new GrpaveDaoImpl();
-                        /*  64*/ Grpave ap = new Grpave();
-                        /*  65*/ ap = dao.Buscar(file.getName().replaceAll(".pdf", ""));
-                        /*  66*/ if (ap == null) {
-                            /*  67*/ item.write(new File(destino, file.getName()));
-                            /*  68*/ response.sendRedirect((new StringBuilder()).append("jsps/Producto/captura.jsp?id=").append(file.getName().replaceAll(".pdf", "")).append("&pdf=").append(file.getName()).append("").toString());
+                    file = new File(item.getName());
+                    int a = file.getName().indexOf(".pdf");
+                    int b = file.getName().indexOf(".PDF");
+                    GrpaveDaoImpl dao = new GrpaveDaoImpl();
+                    Grpave ap = new Grpave();
+                    if (a != -1) {
+
+                        ap = dao.Buscar(file.getName().replaceAll(".pdf", ""));
+                        if (ap == null) {
+                            item.write(new File(destino, file.getName()));
+                            response.sendRedirect((new StringBuilder()).append("jsps/Producto/captura.jsp?id=").append(file.getName().replaceAll(".pdf", "")).append("&pdf=").append(file.getName()).append("").toString());
                         } else {
-                            /*  70*/ response.sendRedirect("jsps/Producto/Error.jsp?op=2");
+                            response.sendRedirect("jsps/Producto/Error.jsp?op=2");
                         }
+                    } else if (b != -1) {
+                        ap = dao.Buscar(file.getName().replaceAll(".PDF", ""));
+                        if (ap == null) {
+                            item.write(new File(destino, file.getName()));
+                            response.sendRedirect((new StringBuilder()).append("jsps/Producto/captura.jsp?id=").append(file.getName().replaceAll(".PDF", "")).append("&pdf=").append(file.getName()).append("").toString());
+                        } else {
+                            response.sendRedirect("jsps/Producto/Error.jsp?op=2");
+                        }
+
+
                     } else {
-                        /*  73*/ response.sendRedirect("jsps/Producto/Error.jsp?op=1");
+                        response.sendRedirect("jsps/Producto/Error.jsp?op=1");
                     }
 
                 } // end while
