@@ -23,11 +23,12 @@ public class GrpaveBean {
      private String estado;
      private String registro;
      private String idusuario;
+     private String urlDropbox;
 
     public GrpaveBean() {
     }
 
-    public GrpaveBean(String idGrpAve, String calle, String colonia, Integer cp, String delegacion, String entidad, String fecha, String tipo, String archivo, String estado, String registro, String idusuario) {
+    public GrpaveBean(String idGrpAve, String calle, String colonia, Integer cp, String delegacion, String entidad, String fecha, String tipo, String archivo, String estado, String registro, String idusuario, String urlDropbox) {
         this.idGrpAve = idGrpAve;
         this.calle = calle;
         this.colonia = colonia;
@@ -40,7 +41,18 @@ public class GrpaveBean {
         this.estado = estado;
         this.registro = registro;
         this.idusuario = idusuario;
+        this.urlDropbox = urlDropbox;
     }
+
+    public String getUrlDropbox() {
+        return urlDropbox;
+    }
+
+    public void setUrlDropbox(String urlDropbox) {
+        this.urlDropbox = urlDropbox;
+    }
+
+    
 
     public String getIdGrpAve() {
         return idGrpAve;

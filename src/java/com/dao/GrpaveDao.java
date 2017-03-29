@@ -26,9 +26,12 @@ public interface GrpaveDao {
     public Grpave Buscar(String idAvaluo);
 
     public void insertar(Grpave grpave);
-    
-    public void  eliminar(String idAvaluo);
-    
+
+    public void eliminar(String idAvaluo);
+
+    public void actualizarEliminar(String estado, String idProducto);
+
     public List Ano();
+
     public int gecontar();
 }

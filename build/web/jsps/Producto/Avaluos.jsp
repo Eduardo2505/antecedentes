@@ -115,22 +115,7 @@
                                                 <input type="hidden" name="i" value="0">
                                                 <input type="hidden" name="f" value="30">
                                                 <input type="hidden" name="columna" value="fecha">
-                                                <select name="valor" class="input-prepend">
-                                                    <%
-
-                                                        List resf = dao.Ano();
-                                                        Iterator itrf = resf.iterator();
-                                                        while (itrf.hasNext()) {
-                                                            Grpave c = (Grpave) itrf.next();
-                                                    %>
-                                                    <option value="<%=c.getFecha().replaceAll("-01-01", "")%>"><%=c.getFecha().replaceAll("-01-01", "")%></option>
-                                                    <%
-                                                        }
-                                                    %>
-
-
-                                                </select>
-
+                                                <input type="text" name="valor" class="input-prepend">
                                                 <input type="submit"  value="Buscar">
                                             </form>
                                             </th>
@@ -167,20 +152,15 @@
                                                     <th><%=c.getFecha()%></th>
                                                     <th><%=c.getTipo()%></th>
                                                     <th><%=c.getRegistro()%></th>
-
-                                                    <%
-                                                        HttpSession sesionxb = request.getSession();
-                                                        Usuario emxb = new Usuario();
-                                                        int accxb = 0;
-                                                        emxb = (Usuario) sesionxb.getAttribute("Empleado");
-                                                    %>
-                                                    <th><a href="../../Avaluos/<%=c.getArchivo().replaceAll("../User/AvaluosCapturados/", "")%>" target="_blank">PDF </a>
-                                                    </th><th>  <a href="../../Eliminar?id=<%=c.getIdGrpAve()%>">Eliminar </a>
+                                                    
+                                                    <th><a href="<%=c.getUrlDropbox()%>" target="_blank">PDF </a>
+                                                   
+                                                    <th>
+                                                        <a href="../../Eliminar?id=<%=c.getIdGrpAve()%>">Eliminar </a>
                                                         <a href="Editar.jsp?id=<%=c.getIdGrpAve()%>">Editar</a>
                                                     </th>
 
-
-
+                                                    
                                                 </tr>
                                                 <%
 

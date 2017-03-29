@@ -36,8 +36,9 @@ public class Eliminar extends HttpServlet {
         
         try {
              GrpaveDaoImpl dao = new GrpaveDaoImpl();
-             dao.eliminar(id);
-              response.sendRedirect("jsps/Producto/Avaluos.jsp?i=1&f=30");
+             
+             dao.actualizarEliminar(id, id);
+             response.sendRedirect("jsps/Producto/Avaluos.jsp?i=1&f=30");
         } finally {            
             out.close();
         }

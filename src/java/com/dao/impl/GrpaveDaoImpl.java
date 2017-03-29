@@ -34,7 +34,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
         String sSQl = "";
         try {
 
-            sSQl = "select * from grpave limit " + inicio + "," + fin + "";
+            sSQl = "select * from grpave where estado!='Eliminar' order by registro desc  limit " + inicio + "," + fin + " ";
 
 
 
@@ -55,6 +55,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
                 ne.setArchivo(rs.getString(9));
                 ne.setEstado(rs.getString(10));
                 ne.setRegistro(rs.getString(11));
+                ne.setUrlDropbox(rs.getString(13));
 
                 pg.add(ne); //agregas ese objeto a la lista
             }
@@ -78,12 +79,12 @@ public class GrpaveDaoImpl implements GrpaveDao {
         String sSQl = "";
         try {
             if (columna.equals("calle")) {
-                sSQl = "select * from grpave where concat(calle,'',colonia,' ',cp) like '%" + valor + "%'  limit " + inicio + "," + fin + "";
+                sSQl = "select * from grpave where estado!='Eliminar' and concat(calle,'',colonia,' ',cp) like '%" + valor + "%' order by registro desc  limit " + inicio + "," + fin + " ";
             } else if (columna.equals("id")) {
                 System.out.println(valor);
-                sSQl = "select * from grpave where idGrpAve ='" + valor + "' limit " + inicio + "," + fin + "";
+                sSQl = "select * from grpave where estado!='Eliminar' and idGrpAve ='" + valor + "' order by registro desc limit " + inicio + "," + fin + " ";
             } else {
-                sSQl = "select * from grpave where " + columna + " like '%" + valor + "%'  limit " + inicio + "," + fin + "";
+                sSQl = "select * from grpave where estado!='Eliminar' and " + columna + " like '%" + valor + "%' order by registro desc  limit " + inicio + "," + fin + " ";
 
             }
 
@@ -104,6 +105,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
                 ne.setArchivo(rs.getString(9));
                 ne.setEstado(rs.getString(10));
                 ne.setRegistro(rs.getString(11));
+                ne.setUrlDropbox(rs.getString(13));
 
                 pg.add(ne); //agregas ese objeto a la lista
             }
@@ -124,7 +126,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
 
         try {
 
-            Query q = session.createQuery("From Grpave where " + columna + "=" + valor + "");
+            Query q = session.createQuery("From Grpave where " + columna + "=" + valor + " order by registro desc");
             q.setFirstResult(inicio);
             q.setMaxResults(fin);
             list = (List<Grpave>) q.list();
@@ -158,6 +160,34 @@ public class GrpaveDaoImpl implements GrpaveDao {
             session.close();
         }
         return list;
+    }
+
+    @Override
+    public void actualizarEliminar(String estado, String idProducto) {
+
+        conexion mysql = new conexion();
+        Connection cn = mysql.Conectar();
+        PreparedStatement st = null;
+        String sSQl = "";
+        try {
+
+            sSQl = "update grpave set idGrpAve = ?,estado=? where idGrpAve = ?";
+
+
+            st = cn.prepareStatement(sSQl);
+            st.setString(1, idProducto + "-Eliminar");
+            st.setString(2, "Eliminar");
+            st.setString(3, idProducto);
+            st.executeUpdate();
+
+
+            st.close();
+
+            cn.close();
+
+        } catch (Exception e) {
+        }
+
     }
 
     @Override
