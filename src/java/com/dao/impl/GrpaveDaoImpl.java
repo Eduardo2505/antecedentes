@@ -147,7 +147,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
 
         try {
 
-            Query q = session.createQuery("From Grpave where dropbox=3");
+            Query q = session.createQuery("From Grpave where dropbox=3 and estado!='Recuperado' and estado!='Buscado'");
             //  int a=4726;
             //q.setFirstResult(a);
 
@@ -157,7 +157,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
         } catch (Exception e) {
             return null;
         } finally {
-            session.close();
+            //session.close();
         }
         return list;
     }
@@ -193,27 +193,29 @@ public class GrpaveDaoImpl implements GrpaveDao {
     @Override
     public void actualizar(String estado, String idProducto) {
 
-        conexion mysql = new conexion();
-        Connection cn = mysql.Conectar();
-        PreparedStatement st = null;
-        String sSQl = "";
+
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+        Grpave altadia = null;
+        Transaction tx = null;
         try {
+            tx = session.beginTransaction();
+            altadia = (Grpave) session.get(Grpave.class, idProducto);
+            altadia.setEstado(estado);
+            session.update(altadia);
 
-            sSQl = "update grpave set estado = ? where idGrpAve = ?";
-
-
-            st = cn.prepareStatement(sSQl);
-            st.setString(1, estado);
-            st.setString(2, idProducto);
-            st.executeUpdate();
-
-
-            st.close();
-
-            cn.close();
-
+            tx.commit();
         } catch (Exception e) {
+            if (tx != null) {
+                tx.rollback();
+            }
+
+        } finally {
+
+            //session.close();
+
         }
+
 
     }
 

@@ -26,25 +26,23 @@ public class BucarArchivos {
     }
 
     public static void main(String[] args) {
-
 //walkin(new File("C:\\AVALUOSDIGITALIZADOS"), "12-999.PDF");
-
         GrpaveDaoImpl dao = new GrpaveDaoImpl();
         List res = dao.getMostrar();
         Iterator itr = res.iterator();
-        int a=0;
+        int a = 0;
         while (itr.hasNext()) {
             Grpave c = (Grpave) itr.next();
             String nom = c.getArchivo().replaceAll("../User/AvaluosCapturados/", "");
             System.out.println(nom);
-            walkin(new File("F:\\Avaluos"), nom);
-             
-        }
+            walkin(new File("D:\\avaluosrespladoOriginal"), nom);
 
+        }
     }
 
     public static void walkin(File dir, String ava) {
-      //  String url = "";
+        //  String url = "";
+        GrpaveDaoImpl dao = new GrpaveDaoImpl();
         File listFile[] = dir.listFiles();
         if (listFile != null) {
             for (int i = 0; i < listFile.length; i++) {
@@ -53,22 +51,19 @@ public class BucarArchivos {
                 } else {
                     if (ava.equals(listFile[i].getName())) {
                         copiar(listFile[i].getPath(), listFile[i].getName());
-                        GrpaveDaoImpl dao = new GrpaveDaoImpl();                       
-                        dao.actualizar("Recuperado",ava.replace(".PDF",""));
-                        System.out.println(listFile[i].getName());
                         
-                    }
-                
+                       
+
+                    } 
+
 
 
 
                 }
             }
         }
-       // return url;
+        // return url;
     }
-
-    
 
     public static void copiar(String url, String nombre) {
 

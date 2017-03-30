@@ -1,5 +1,5 @@
 package mapping;
-// Generated 3/07/2014 10:22:26 AM by Hibernate Tools 3.2.1.GA
+// Generated 30/03/2017 01:46:09 AM by Hibernate Tools 3.2.1.GA
 
 
 
@@ -32,6 +32,8 @@ public class Grpave  implements java.io.Serializable {
      private String estado;
      private String registro;
      private String idusuario;
+     private String urlDropbox;
+     private Integer dropbox;
 
     public Grpave() {
     }
@@ -41,7 +43,7 @@ public class Grpave  implements java.io.Serializable {
         this.idGrpAve = idGrpAve;
         this.idusuario = idusuario;
     }
-    public Grpave(String idGrpAve, String calle, String colonia, Integer cp, String delegacion, String entidad, String fecha, String tipo, String archivo, String estado, String registro, String idusuario) {
+    public Grpave(String idGrpAve, String calle, String colonia, Integer cp, String delegacion, String entidad, String fecha, String tipo, String archivo, String estado, String registro, String idusuario, String urlDropbox, Integer dropbox) {
        this.idGrpAve = idGrpAve;
        this.calle = calle;
        this.colonia = colonia;
@@ -54,6 +56,8 @@ public class Grpave  implements java.io.Serializable {
        this.estado = estado;
        this.registro = registro;
        this.idusuario = idusuario;
+       this.urlDropbox = urlDropbox;
+       this.dropbox = dropbox;
     }
    
      @Id 
@@ -164,6 +168,24 @@ public class Grpave  implements java.io.Serializable {
     
     public void setIdusuario(String idusuario) {
         this.idusuario = idusuario;
+    }
+    
+    @Column(name="urlDropbox", length=450)
+    public String getUrlDropbox() {
+        return this.urlDropbox;
+    }
+    
+    public void setUrlDropbox(String urlDropbox) {
+        this.urlDropbox = urlDropbox;
+    }
+    
+    @Column(name="dropbox")
+    public Integer getDropbox() {
+        return this.dropbox;
+    }
+    
+    public void setDropbox(Integer dropbox) {
+        this.dropbox = dropbox;
     }
 
 
