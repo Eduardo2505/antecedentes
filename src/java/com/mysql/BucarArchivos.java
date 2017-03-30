@@ -36,7 +36,8 @@ public class BucarArchivos {
         while (itr.hasNext()) {
             Grpave c = (Grpave) itr.next();
             String nom = c.getArchivo().replaceAll("../User/AvaluosCapturados/", "");
-            walkin(new File("C:\\AVALUOSDIGITALIZADOS"), nom);
+            System.out.println(nom);
+            walkin(new File("F:\\Avaluos"), nom);
              
         }
 

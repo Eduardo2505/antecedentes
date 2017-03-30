@@ -147,7 +147,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
 
         try {
 
-            Query q = session.createQuery("From Grpave where estado!='Recuperado'");
+            Query q = session.createQuery("From Grpave where dropbox=3");
             //  int a=4726;
             //q.setFirstResult(a);
 
