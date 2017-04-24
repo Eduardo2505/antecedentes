@@ -103,7 +103,7 @@
                                                                 </div>
                                                                 <div class="col-lg-3">
 
-                                                                    <input type="text" maxlength="4" name="ano" value="<%=ap.getFecha().replaceAll("-01-01", "")%>"  onkeypress="return isNumberKey(event)" class="form-control" placeholder="AÑO" required>
+                                                                    <input type="text" maxlength="4" name="ano" value="<%=ap.getFecha()%>"  onkeypress="return isNumberKey(event)" class="form-control" placeholder="AÑO" required>
                                                                    
                                                                 </div>
                                                             </div>

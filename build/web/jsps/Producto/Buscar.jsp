@@ -153,7 +153,19 @@
                                                     <th><%=c.getRegistro()%></th>
 
 
-                                                    <th><a href="<%=c.getUrlDropbox()%>" target="_blank">PDF </a>
+                                                        <%
+                                                        
+                                                        if(c.getUrlDropbox()!=null){
+                                                            %>
+                                                              <th><a href="<%=c.getUrlDropbox()%>" target="_blank">PDF </a></th>
+                                                            <%  
+                                                        
+                                                        }else{
+                                                            %>
+                                                              <th><a href="../../Avaluos/<%=c.getArchivo()%>" target="_blank">PDF </a></th>
+                                                            <%  
+                                                        }
+                                                        %>
 
                                                     <th>
                                                         <a href="../../Eliminar?id=<%=c.getIdGrpAve()%>">Eliminar </a>
