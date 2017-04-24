@@ -26,7 +26,28 @@ public class BucarArchivos {
     }
 
     public static void main(String[] args) {
-//walkin(new File("C:\\AVALUOSDIGITALIZADOS"), "12-999.PDF");
+
+        listar(new File("C:\\Avaluos"));
+
+    }
+
+    public static void listar(File dir) {
+        String[] ficheros = dir.list();
+        if (ficheros == null) {
+            System.out.println("No hay ficheros en el directorio especificado");
+        } else {
+            for (int x = 0; x < ficheros.length; x++) {
+                String idAvaluo = ficheros[x].replaceAll(".PDF", "");
+
+                GrpaveDaoImpl dao = new GrpaveDaoImpl();
+                dao.actualizar("R", idAvaluo);
+
+            }
+        }
+    }
+
+    public static void buscar() {
+        //walkin(new File("C:\\AVALUOSDIGITALIZADOS"), "12-999.PDF");
         GrpaveDaoImpl dao = new GrpaveDaoImpl();
         List res = dao.getMostrar();
         Iterator itr = res.iterator();
@@ -51,10 +72,10 @@ public class BucarArchivos {
                 } else {
                     if (ava.equals(listFile[i].getName())) {
                         copiar(listFile[i].getPath(), listFile[i].getName());
-                        
-                       
 
-                    } 
+
+
+                    }
 
 
 

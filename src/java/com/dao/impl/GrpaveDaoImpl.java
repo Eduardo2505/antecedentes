@@ -202,6 +202,8 @@ public class GrpaveDaoImpl implements GrpaveDao {
             tx = session.beginTransaction();
             altadia = (Grpave) session.get(Grpave.class, idProducto);
             altadia.setEstado(estado);
+            altadia.setEstado(estado);
+            altadia.setDropbox(1);
             session.update(altadia);
 
             tx.commit();
@@ -211,9 +213,7 @@ public class GrpaveDaoImpl implements GrpaveDao {
             }
 
         } finally {
-
             //session.close();
-
         }
 
 

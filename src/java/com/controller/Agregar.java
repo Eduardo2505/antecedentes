@@ -7,8 +7,11 @@ package com.controller;
 import com.dao.impl.GrpaveDaoImpl;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -22,9 +25,9 @@ import mapping.Usuario;
  * @author Eduardo
  */
 public class Agregar extends HttpServlet {
-
+    
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, ParseException {
         response.setContentType("text/html;charset=UTF-8");
         PrintWriter out = response.getWriter();
         HttpSession sesion = request.getSession();
@@ -38,10 +41,10 @@ public class Agregar extends HttpServlet {
         int cp = Integer.parseInt(request.getParameter("CP").trim().toUpperCase());
         String delegacion = request.getParameter("delegacion").trim().toUpperCase();
         String entidad = request.getParameter("entidad").trim().toUpperCase();
-        String ano = request.getParameter("ano").trim().toUpperCase();
+        int ano = Integer.parseInt(request.getParameter("ano").trim());
         String tipo = request.getParameter("tipo").trim();
-
-
+        
+        
         try {
             GrpaveDaoImpl dao = new GrpaveDaoImpl();
             Grpave d = new Grpave();
@@ -55,15 +58,9 @@ public class Agregar extends HttpServlet {
             d.setTipo(tipo);
             d.setArchivo(pdf);
             d.setEstado("Capturado");
-            d.setRegistro(tipo);
-             Date ahora = new Date();
-            SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
-            SimpleDateFormat dateFormatf = new SimpleDateFormat("yyyy-MM-dd");
-            String fechaAc = dateFormatf.format(ahora);
-            String horaAc = dateFormat.format(ahora);
-            String hora = fechaAc + " " + horaAc;
             d.setIdusuario(em.getIdusuario());
-            d.setRegistro(hora);            
+            d.setDropbox(0);
+            
             dao.insertar(d);
             response.sendRedirect("jsps/Producto/Correcto.jsp");
         } finally {
@@ -84,7 +81,11 @@ public class Agregar extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -99,7 +100,11 @@ public class Agregar extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (ParseException ex) {
+            Logger.getLogger(Agregar.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
